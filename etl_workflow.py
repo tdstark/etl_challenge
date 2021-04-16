@@ -34,7 +34,7 @@ config_dict = {"aws_access_key_id": str(os.getenv("AWS_ACCESS_KEY_ID")),
                "transaction_postgres_table": "transactions",
                "transaction_redshift_schema": "public",
                "transaction_redshift_table": "transactions",
-               "transaction_primary_key": "account_no",
+               "transaction_primary_key": "transaction_no",
                "trades_aws_bucket": "storicard-trades",
                "trades_bucket_con_string": "s3://storicard-trades",
                "trades_redshift_schema": "public",
@@ -200,8 +200,7 @@ class TransactionsData:
                                       aws_access_key_id=config_dict["aws_access_key_id"],
                                       aws_secret_access_key=config_dict["aws_secret_access_key"],
                                       dataframe=self.dataframe,
-                                      additional_params="DELIMITER ',' IGNOREHEADER 1",
-                                      insert_only=True)
+                                      additional_params="DELIMITER ',' IGNOREHEADER 1")
 
     def cleanup_s3(self):
         """
