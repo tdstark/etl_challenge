@@ -41,3 +41,4 @@ Generally, the platform's architecture is as follows:
 * A auto-increment/serial column was added to the Postgres DB to serve as a primary key. This is the basis for upserts in Redshift.
 * Column names for the Postgres DB were cleaned.
 * The .json data is normalized within the pipeline.
+* I made an assumption that the balance_amt column in the postgresdb would be pre-calculated during insertion into postgres.
