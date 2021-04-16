@@ -200,7 +200,7 @@ class TransactionsData:
                                       aws_access_key_id=config_dict["aws_access_key_id"],
                                       aws_secret_access_key=config_dict["aws_secret_access_key"],
                                       dataframe=self.dataframe,
-                                      additional_params="DELIMITER ',' IGNOREHEADER 1")
+                                      additional_params="DELIMITER ','")
 
     def cleanup_s3(self):
         """
