@@ -35,6 +35,7 @@ To install any required dependencies, use:
 ![](architecture_diagram.jpeg)
 
 Generally, the platform's architecture is as follows:
+* etl_workflow.py is the primary execution script
 * Data sources are ingested from an AWS RDS-hosted PostgreSQL instance and a MongoDB on an EC2 instance in batches via the EC2 instance in the processing layer
 * After the data has been extracted and transformed, it is staged into an S3 bucket
 * The same EC2 instance then runs a copy command from Redshift which pulls in all data staged in S3. This is done to make use of Redshift's massively parallel processing ability.
