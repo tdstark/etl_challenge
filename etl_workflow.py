@@ -6,7 +6,8 @@ from data_connectors import AWSConnector, DatabaseConnector, MongoConnector
 from database_queries import s3_upsert_to_redshift
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s',
-                    level=logging.DEBUG)
+                    level=logging.DEBUG,
+                    filename='stori.log')
 
 # In production, this could be moved into a config file.
 config_dict = {"aws_access_key_id": str(os.getenv("AWS_ACCESS_KEY_ID")),
@@ -199,7 +200,8 @@ class TransactionsData:
                                       aws_access_key_id=config_dict["aws_access_key_id"],
                                       aws_secret_access_key=config_dict["aws_secret_access_key"],
                                       dataframe=self.dataframe,
-                                      additional_params="DELIMITER ',' IGNOREHEADER 1")
+                                      additional_params="DELIMITER ',' IGNOREHEADER 1",
+                                      insert_only=True)
 
     def cleanup_s3(self):
         """

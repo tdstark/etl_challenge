@@ -11,7 +11,8 @@ def s3_upsert_to_redshift(conn,
                           aws_access_key_id,
                           aws_secret_access_key,
                           dataframe,
-                          additional_params):
+                          additional_params,
+                          insert_only=False):
     """
     This function upserts json or csv data from s3 into
     a target Redshift table leveraging a SQLAlchemy connection.
@@ -27,6 +28,7 @@ def s3_upsert_to_redshift(conn,
     :param additional_params: str: This field should contain any additional
     parameters that should be added to the copy statement, namely JSON AS 'auto'
     or DELIMITER ',' IGNOREHEADER 1.
+    :param insert_only: bool: default False. If this is True, the update statement will be skipped
     """
     set_columns = ""
     copy_columns = ""
@@ -44,10 +46,11 @@ def s3_upsert_to_redshift(conn,
                      secret_access_key '{aws_secret_access_key}'
                      {additional_params};""")
 
-    conn.execute(f"""UPDATE {schema}.{redshift_table} AS t1
-                     SET {set_columns}
-                     FROM {redshift_table}_temp AS t2
-                     WHERE t1."{primary_key}" = t2."{primary_key}";""")
+    if insert_only is False:
+        conn.execute(f"""UPDATE {schema}.{redshift_table} AS t1
+                         SET {set_columns}
+                         FROM {redshift_table}_temp AS t2
+                         WHERE t1."{primary_key}" = t2."{primary_key}";""")
 
     conn.execute(f"""INSERT INTO {schema}.{redshift_table}
                      SELECT t2.* FROM {redshift_table}_temp t2 LEFT JOIN {redshift_table} t1
