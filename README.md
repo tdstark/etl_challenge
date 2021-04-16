@@ -26,7 +26,7 @@ To install any required dependencies, use:
 
 ### Usage:
 
-* The pipeline is configured to run based on cron jobs every 20 minutes: `*/20 * * * *` OR `20,40,60 * * * *`
+* The pipeline is configured to run based on cron jobs every 20 minutes: `*/20 * * * *` OR `00,20,40 * * * *`
 * Any data that is added or updated to the source Postgres database will automatically be copied into Redshift on the next cycle
 * The MongoDB connection is currently configured to pull a single .json document from the DB and upload it to the data warehouse. Adding additional .jsons will not break the pipeline but they will not upsert in the correct order. Subsequent versions of the pipeline would pull the most recent documents based on either a datetime stamp or queue.
 * The system is currently configured to do upserts only. It will delete records from Redshift, but this needs to be uncommented in the upsert statement.
