@@ -39,6 +39,10 @@ Generally, the platform's architecture is as follows:
 * After the data has been extracted and transformed, it is staged into an S3 bucket
 * The same EC2 instance then runs a copy command from Redshift which pulls in all data staged in S3. This is done to make use of Redshift's massively parallel processing ability.
 
+### Database Schemas:
+![](redshift_schema.png)
+![](postgres_schema.png)
+
 ### Other:
 * A auto-increment/serial column was added to the Postgres DB to serve as a primary key. This is the basis for upserts in Redshift.
 * Column names for the Postgres DB were cleaned.
