@@ -1,4 +1,4 @@
-## Stori Tech Challenge
+## ETL Tech Challenge
 
 ### Description:
 For this challenge, you are tasked with creating a simple data pipeline to copy data from various data sources to a data warehouse. The pipeline should run on a schedule and copy over data that has been either inserted or updated in the data sources since the last pipeline run.
